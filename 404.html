@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<script src="https://www.gstatic.com/firebasejs/4.4.0/firebase.js"></script>
+<script>
+  /* global firebase */
+  var config = {
+    apiKey: "AIzaSyAvhRMDTAxHRqIM0-RpHxPjZtMn7S_H7K4",
+    authDomain: "t485.firebaseapp.com",
+    databaseURL: "https://t485.firebaseio.com",
+    projectId: "project-2556333409340273878",
+    storageBucket: "project-2556333409340273878.appspot.com",
+    messagingSenderId: "510743665020"
+  };
+  firebase.initializeApp(config);
+</script>
+    <script>
+        /* global firebase */
+        var name = decodeURIComponent(window.location.pathname.substring(1));
+        console.log(name);
+        if (name !== null && name !== "" && name !== undefined) {
+            console.log(1);
+            firebase.database().ref("/links/" + name + "/").once("value").then( function(data) {
+                console.log(2);
+                console.log(data.val());
+                if (data.val() !== null) {
+
+                    window.location.href = data.val();
+
+                }
+
+            });
+        }
+    </script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <title>T485 Link Shortener</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="redir">Loading...</h1>
+    <div class="container hidden" id="container">
+        <div class="col-lg-12">
+            <h1>Something Went Wrong!</h1>
+            <h3 class="text-muted">404 Error - File Not Found</h3>
+            <p>You got a link to jmls(Jeffrey Meng Link Shortner) that was supposed to redirect you to another page, but the link you got is invalid.</p>
+            <p>The requested link was not found. <a>Click here to go to the home page</a>.</p>
+            <p class="text-muted">More Info:</p>
+
+        </div>
+
+
+
+
+    </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script>
+        /* global firebase */
+        var name = decodeURIComponent(window.location.pathname.substring(1));
+        if (name !== null && name !== "" && name !== undefined) {
+            firebase.database().ref("/links/jmls/" + name + "/").once("value").then( function(data) {
+                console.log(data.val());
+                if (data.val() !== null) {
+
+                    window.location.href = data.val();
+
+                } else {
+                    $("#container").removeClass("hidden");
+                }
+
+            });
+        }
+    </script>
+</body>
+
+</html>
