@@ -97,7 +97,7 @@
                             else {
                                 $("#link").val("");
                                 $("#url").val("");
-                                firebase.database().ref("/links/jmls/" + url + "/").set(link);
+                                firebase.database().ref("/links/" + url + "/").set(link);
                                 $("#success").html("Success! The link <b>https://ls.t485.org/" + url + "<\/b> now redirects to <b>" + link + "<\/b>. If you are embedding this link, use <b>http://ls.t485.org/#" + url + "<\/b>.");
                                 url.val("");
                                 link.val("");
