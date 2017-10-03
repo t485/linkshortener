@@ -21,7 +21,7 @@
 
     <script>
         /* global firebase */
-        var name = window.locatiosn.hash.substring(1);
+        var name = window.location.hash.substring(1);
 
         if (name !== null && name !== "" && name !== undefined) {
             firebase.database().ref("/links/" + name + "/").once("value").then( function(data) {
