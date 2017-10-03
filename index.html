@@ -46,7 +46,7 @@
 
                     <label for="basic-url">Choose a short URL</label>
                     <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon3">https://l.t485.org/</span>
+                        <span class="input-group-addon" id="basic-addon3">https://ls.t485.org/</span>
                         <input aria-describedby="basic-addon3" class="form-control" id="url" placeholder="url" type="text">
                     </div><br>
                     <label for="link">Link to redirect to(include http:// or https:// )</label> <input class="form-control" id="link" placeholder="https://" type="text"><br>
@@ -98,7 +98,7 @@
                                 $("#link").val("");
                                 $("#url").val("");
                                 firebase.database().ref("/links/jmls/" + url + "/").set(link);
-                                $("#success").html("Success! The link <b>https://l.t485.org/" + url + "<\/b> now redirects to <b>" + link + "<\/b>. If you are embedding this link, use <b>http://jmls.tk/#" + url + "<\/b>.");
+                                $("#success").html("Success! The link <b>https://ls.t485.org/" + url + "<\/b> now redirects to <b>" + link + "<\/b>. If you are embedding this link, use <b>http://ls.t485.org/#" + url + "<\/b>.");
                                 url.val("");
                                 link.val("");
 
