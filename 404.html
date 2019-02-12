@@ -1,84 +1,63 @@
-<!DOCTYPE html>
 <html>
 
 <head>
-
-
-<script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script>
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyB-ly8ax35aWTAGhX2UDVuYxPSDlAU8kMk",
-    authDomain: "t485-main.firebaseapp.com",
-    databaseURL: "https://t485-main.firebaseio.com",
-    projectId: "t485-main",
-    storageBucket: "t485-main.appspot.com",
-    messagingSenderId: "368513727602"
-  };
-  firebase.initializeApp(config);
-</script>
-    <script>
-        /* global firebase */
-        var name = decodeURIComponent(window.location.pathname.substring(1));
-        console.log(name);
-        if (name !== null && name !== "" && name !== undefined) {
-            console.log(1);
-            firebase.database().ref("/links/" + name + "/").once("value").then( function(data) {
-                console.log(2);
-                console.log(data.val());
-                if (data.val() !== null) {
-
-                    window.location.href = data.val();
-
-                }
-
-            });
-        }
-    </script>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <title>T485 Link Shortener</title>
-    <style>
-        .hidden {
-            display: none;
-        }
-    </style>
+    <title>T485 Link Shortener | Loading link...</title>
 </head>
 
 <body>
-    <h1 id="redir">Loading...</h1>
-    <div class="container hidden" id="container">
-        <div class="col-lg-12">
-            <h1>Something Went Wrong!</h1>
-            <h3 class="text-muted">404 Error - File Not Found</h3>
-            <p>You got a link to the Troop 485 link shortener that was supposed to redirect you to another page, but the link you got is invalid.</p>
-            <p>The requested link was not found. <a href="/">Click here to go to the home page</a>.</p>
-            <p class="text-muted">For more info, you can email jeffmeng7@gmail.com(Jeffrey Meng)</p>
+<h1>Loading...</h1>
+<script src="https://www.gstatic.com/firebasejs/5.8.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.8.2/firebase-database.js"></script>
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyB-ly8ax35aWTAGhX2UDVuYxPSDlAU8kMk",
+        authDomain: "t485-main.firebaseapp.com",
+        databaseURL: "https://t485-main.firebaseio.com",
+        projectId: "t485-main",
+        storageBucket: "t485-main.appspot.com",
+        messagingSenderId: "368513727602"
+    };
+    firebase.initializeApp(config);
+</script>
+<script>
+    var errorTemplate = `
+                <html><head>
+                <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+                </head><body>
+                <div class="container">
+                    <div class="col-lg-12">
+                        <h1>404 Error: File not found</h1>
+                        <p class="text-muted">T485 Link Shortener</p>
+                        <hr>
+                        <p>The link you have tried to access does not exist. <a href="/">You may be able to create this link at the home page.</a>
+                        Please note that some links cannot be created, even if they do not already exist.
+                         <br>
+                         If you believe this is an error, please contact the webmaster (<a href="mailto:webmaster@t485.org">webmaster@t485.org).</p>
 
-        </div>
+                    </div>
+                </div>
+        `;
 
+    if (window.location.pathname.substring(1) !== "") {
+        firebase.database().ref("/links/root/" + encodeURIComponent(window.location.pathname.substring(1)) + "/link/").once("value").then(function (snapshot) {
+            var data = snapshot.val();
+            console.log(data);
+            if (data && data.text && !data.reserved && !data.disabled) {//false for reserved words
+                window.location.href = data.link;
+            } else {
+                document.open();//clears everything
+                document.write(errorTemplate);
+            }
+        });
+    } else {
+        document.open();//clears everything
 
+        document.write(errorTemplate);
+    }
 
+</script>
 
-    </div>
-    </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script>
-        /* global firebase */
-        var name = decodeURIComponent(window.location.pathname.substring(1));
-        if (name !== null && name !== "" && name !== undefined) {
-            firebase.database().ref("/links/" + name + "/").once("value").then( function(data) {
-                console.log(data.val());
-                if (data.val() !== null) {
-
-                    window.location.href = data.val();
-
-                } else {
-                    $("#container").removeClass("hidden");
-                }
-
-            });
-        }
-    </script>
 </body>
 
 </html>
