@@ -74,20 +74,6 @@
             <div class="invalid-feedback" id="link-validation"></div>
         </div>
 
-        <!--<div class="custom-control custom-checkbox">-->
-            <!--<input type="checkbox" class="custom-control-input" id="password-protection">-->
-            <!--<label class="custom-control-label" for="password-protection">Password Protection</label>-->
-        <!--</div>-->
-        <!--<div class="collapse" id="password-protection-box">-->
-            <!--<label for="password">Password:</label>-->
-            <!--<div class="input-group mb-3">-->
-                <!--<input type="password" id="password" class="form-control" placeholder="password">-->
-                <!--<div class="input-group-append">-->
-                    <!--<button class="btn btn-outline-secondary" type="button" id="password-toggle-visibility" title="show password"><span id="password-show"><i class="fas fa-eye"></i></span><span id="password-hide" class="hidden"><i class="fas fa-eye-slash"></i></span></button>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-
         <button id="create" class="btn btn-success btn-block mt-3">Create short link</button>
 
 
@@ -273,42 +259,13 @@
                         showNameError(`The short link <code>${name}</code> is taken.`);
                         setButtonLoading(false);
                     } else {
-                        let encrypted = $("#password-protection").is(':checked');
-                        let encryptionPw;
-                        let plaintextLink;
-                        if (encrypted) {
-                            encryptionPw = $("#password");
-                            plaintextLink = link;
-                            link = encodeURIComponent(btoa(sjcl.encrypt(encryptionPw, data)));
-                        }
-                        console.log(JSON.stringify({
-                            link: {
-                                text:link,
-                                encrypted:encrypted
-                            },
-                            metadata:{
-                                created:Date() + "",
-                                version:"2.0.0",
-                                encryption:encrypted ? {
-                                    plaintextLink:plaintextLink,
-                                    password:encryptionPw
-                                } : null
-                            }
-
-
-                        }));
                         firebase.database().ref("/links/root/" + decodeURIComponent(name)).set({
                             link: {
-                                text:link,
-                                encrypted:encrypted
+                                text:link
                             },
                             metadata:{
                                 created:Date() + "",
-                                version:"2.0.0",
-                                encryption:encrypted ? {
-                                    plaintextLink:plaintextLink,
-                                    password:encryptionPw
-                                } : null
+                                version:"2.0.0"
                             }
 
 
