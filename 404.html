@@ -45,6 +45,15 @@
             console.log(data);
             if (data && data.text && !data.reserved && !data.disabled) {//false for reserved words
                 window.location.href = data.text;
+                setTimeout(function() {
+
+                    window.location.href = data.text;
+                    document.open();
+                    document.write(`
+                        <h1>Loading...</h1>
+                        <h3>If you are not automatically redirected soon, click here: <a href="${data.text}">${data.text}</a></h3>
+                    `);
+                }, 1250);
             } else {
                 document.open();//clears everything
                 document.write(errorTemplate);
