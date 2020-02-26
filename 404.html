@@ -44,7 +44,10 @@
             var data = snapshot.val();
             console.log(data);
             if (data && data.text && !data.reserved && !data.disabled) {//false for reserved words
-                window.location.href = data.text;
+                if (data.text.substring(0,7) !== "mailto:") {
+                    // don't open email links twice.
+                    window.location.href = data.text;
+                }
                 setTimeout(function() {
 
                     window.location.href = data.text;
