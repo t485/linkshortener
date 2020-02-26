@@ -56,7 +56,7 @@
                 </div>
                 <input type="text" class="form-control" id="name" aria-describedby="random">
                 <div class="input-group-append">
-                    <button class="btn btn-primary" type="button" tabindex="-1" id="random">Random</button>
+                    <button class="btn btn-primary rounded-right" type="button" tabindex="-1" id="random">Random</button>
                     <!-- we set tab index of the random button to -1 to allow the tab to move directly from short url to the link
                     It is unlikely a user will press tab to get to the random button after filling out a short url.-->
                 </div>
@@ -70,7 +70,7 @@
 
         <label for="link">Link to redirect to:</label>
         <div class="input-group">
-            <input type="text" class="form-control mb-2" id="link" placeholder="Include http:// or https://">
+            <input type="text" class="form-control rounded-right mb-2" id="link" placeholder="Include http:// or https://">
             <div class="invalid-feedback" id="link-validation"></div>
         </div>
 
@@ -88,7 +88,7 @@
 <!--<script src="index.js"></script>-->
 <script>
     var nameRegex = new RegExp("^[A-Za-z0-9][A-Za-z0-9-_ ]*$");
-    var urlRegex = new RegExp("^(\\b(https?|ftp|file|mailto):\\/\\/)[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]$")
+    var urlRegex = new RegExp("^((\\b(https?|ftp|file):\\/\\/)[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]$)|mailto:.+");
     function showNameError(message) {
         $("#name-validation").html(message);
         $("#name").removeClass("is-valid");
