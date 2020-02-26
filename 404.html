@@ -49,6 +49,10 @@
 
                     window.location.href = data.text;
                     document.open();
+                    if (data.text.substring(0,7) === "mailto:") {
+                        document.write(`<h3>Your link should open in the default email browser. If that doesn't work, you can also click here: <a href="${data.text}">${data.text}</a> </h3>`)
+                        return;
+                    }
                     document.write(`
                         <h1>Loading...</h1>
                         <h3>If you are not automatically redirected soon, click here: <a href="${data.text}">${data.text}</a></h3>
