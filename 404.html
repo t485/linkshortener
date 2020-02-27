@@ -28,33 +28,33 @@
 <html>
 
 <head>
-\t<meta charset="utf-8">
-\t<meta http-equiv="X-UA-Compatible" content="IE=edge">
-\t<meta name="viewport" content="width=device-width, initial-scale=1">
-\t<meta name="author" content="Jeffrey Meng">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Jeffrey Meng">
 
-\t<title>T485 Link Shortener | Open Email Link</title>
-\t
-\t<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-\t<script src="/fontawesome/js/solid.min.js"><` + `/script>
-\t
+<title>T485 Link Shortener | Open Email Link</title>
+
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+<script src="/fontawesome/js/solid.min.js"><` + `/script>
+
 <script src="/fontawesome/js/fontawesome.min.js"><` + `/script>
 </head>
 
 <body>
 <div class="container">
-    \t
+    
     <div class="col-lg-12 pt-3">
-        \t\t<h1>Troop 485 Link Shortener</h1>
-        \t\t
+        <h1>Troop 485 Link Shortener: Email Link</h1>
+        
         <hr>
-        \t\t<p>For security reasons, email links aren't opened automatically.</p>
-        \t\t
+        <p class="text-muted">For security reasons, email links aren't opened automatically.</p>
+        
         <a class="btn btn-block btn-primary" href="${encodeURI(link)}">Open this link in the default email browser</a>
         <p class="my-3">Or, copy the following into the sender input field of any email client: <a class="clip" href="#">${emails.replace(/</g, "&lt;")}</a> (Click to copy).</p>
 
-
-        \t
+        <a href="/">Create your own short links here.</a>
+        
     </div>
 </div>
 
