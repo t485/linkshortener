@@ -204,7 +204,7 @@
             hideLinkColors();
 
         } else if (!(urlRegex.test(link))) {
-            showLinkError(`The URL <code>${link}</code> is invalid. Remember to use http:// or https://. Only http, https, file, and ftp protocol urls are supported.`);
+            showLinkError(`The URL <code>${link}</code> is invalid. Remember to use http:// or https://. Only http, https, file, ftp, and mailto protocol urls are supported.`);
         } else {
 
             showLinkSuccess();

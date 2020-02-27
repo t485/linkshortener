@@ -19,6 +19,63 @@
         messagingSenderId: "368513727602"
     };
     firebase.initializeApp(config);
+
+    var getEmailHtml = (link, emails) => {
+        // Note: < / script> is not allowed in javascript here because it would end the HTML script tag too early.
+
+        return (`
+        <!DOCTYPE html>
+<html>
+
+<head>
+\t<meta charset="utf-8">
+\t<meta http-equiv="X-UA-Compatible" content="IE=edge">
+\t<meta name="viewport" content="width=device-width, initial-scale=1">
+\t<meta name="author" content="Jeffrey Meng">
+
+\t<title>T485 Link Shortener | Open Email Link</title>
+\t
+\t<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+\t<script src="/fontawesome/js/solid.min.js"><` + `/script>
+\t
+<script src="/fontawesome/js/fontawesome.min.js"><` + `/script>
+</head>
+
+<body>
+<div class="container">
+    \t
+    <div class="col-lg-12 pt-3">
+        \t\t<h1>Troop 485 Link Shortener</h1>
+        \t\t
+        <hr>
+        \t\t<p>For security reasons, email links aren't opened automatically.</p>
+        \t\t
+        <a class="btn btn-block btn-primary" href="${encodeURI(link)}">Open this link in the default email browser</a>
+        <p class="my-3">Or, copy the following into the sender input field of any email client: <a class="clip" href="#">${emails.replace(/</g, "&lt;")}</a> (Click to copy).</p>
+
+
+        \t
+    </div>
+</div>
+
+    <script src="/js/jquery.min.js"><` + `/script>
+    <script src="/js/popper.min.js"><` + `/script>
+    <script src="/js/bootstrap.min.js"><` + `/script>
+    <script src="/js/clipboard.min.js"><` + `/script>
+    <script src="https://cdn.jeffkmeng.com/library/clipboardtooltipper/1.0.0/clipboardtooltipper.js"><` + `/script>
+    <script>
+    clipboardTooltipper.init(".clip");
+    $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+    });
+    <` + `/script>
+
+
+    </body>
+
+    </html>
+    `)}
+
 </script>
 <script>
     var errorTemplate = `
@@ -45,31 +102,36 @@
             console.log(data);
             if (data && data.text && !data.reserved && !data.disabled) {//false for reserved words
                 if (data.text.substring(0,7) !== "mailto:") {
-                    // don't open email links twice.
+                    // mailto links aren't opened.
                     window.location.href = data.text;
                 }
                 setTimeout(function() {
-
-                    window.location.href = data.text;
-                    document.open();
                     if (data.text.substring(0,7) === "mailto:") {
-                        document.write(`<h3>Your link should open in the default email browser. If that doesn't work, you can also click here: <a href="${data.text}">${data.text.replace(/</g, "&lt;")}</a> </h3>`)
+                        document.open();
+                        document.write(getEmailHtml(data.text, data.text.substring(7)));
+                        document.close();
                         return;
                     }
+                    window.location.href = data.text;
+                    document.open();
+
                     document.write(`
                         <h1>Loading...</h1>
-                        <h3>If you are not automatically redirected soon, click here: <a href="${data.text}">${data.text}</a></h3>
+                        <h3>If you are not automatically redirected soon, click here: <a href="${data.text}">${data.text.replace(/</g, "&lt;")}</a></h3>
                     `);
+                    document.close();
                 }, 1250);
             } else {
                 document.open();//clears everything
                 document.write(errorTemplate);
+                document.close();
             }
         });
     } else {
         document.open();//clears everything
 
         document.write(errorTemplate);
+        document.close();
     }
 
 </script>
