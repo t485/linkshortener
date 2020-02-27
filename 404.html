@@ -101,17 +101,17 @@
             var data = snapshot.val();
             console.log(data);
             if (data && data.text && !data.reserved && !data.disabled) {//false for reserved words
-                if (data.text.substring(0,7) !== "mailto:") {
-                    // mailto links aren't opened.
-                    window.location.href = data.text;
+                if (data.text.substring(0,7) === "mailto:") {
+                    // Mailto links are handled separately
+                    document.open();
+                    document.write(getEmailHtml(data.text, data.text.substring(7)));
+                    document.close();
+                    return;
                 }
+                    window.location.href = data.text;
+
                 setTimeout(function() {
-                    if (data.text.substring(0,7) === "mailto:") {
-                        document.open();
-                        document.write(getEmailHtml(data.text, data.text.substring(7)));
-                        document.close();
-                        return;
-                    }
+
                     window.location.href = data.text;
                     document.open();
 
