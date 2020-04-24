@@ -1,0 +1,28 @@
+{
+  "name": "linkshortener",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel src/redirect.html --out-dir public",
+    "build": "rm -rf ./public && parcel build src/redirect.html --out-dir public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/t485/linkshortener.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/t485/linkshortener/issues"
+  },
+  "homepage": "https://github.com/t485/linkshortener#readme",
+  "dependencies": {
+    "firebase": "^7.14.1",
+    "parcel-bundler": "^1.12.4"
+  },
+  "devDependencies": {
+    "typescript": "^3.8.3"
+  }
+}

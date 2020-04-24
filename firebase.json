@@ -1,0 +1,23 @@
+{
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "redirects": [
+      {
+        "source": "/",
+        "destination": "https://beta.t485.org/resources/linkshortener",
+        "type": 301
+      }
+    ],
+    "rewrites": [
+      {
+        "source": "!/index.html",
+        "destination": "/redirect.html"
+      }
+    ]
+  }
+}
